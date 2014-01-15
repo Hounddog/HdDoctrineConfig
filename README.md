@@ -1,0 +1,4 @@
+HdDoctrineConfig
+================
+
+Doctrine Configuration 
