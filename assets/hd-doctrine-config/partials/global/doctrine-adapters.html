@@ -1,0 +1,147 @@
+<br clear="left">
+
+<div class="panel-group tooltip-api">
+  <div class="panel panel-default" ng-repeat="doctrineAdapter in doctrineAdapters">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <font color="gray" size="-1">Doctrine Adapter</font>
+        <a data-parent="#accordion" data-target="#collapse{{$index}}">
+          {{ doctrineAdapter.adapter_name }}
+        </a>
+        <div ng-hide="deleteDoctrineAdapter" class="pull-right">
+          <button ng-click="deleteDoctrineAdapter = true" id="remove-adapter" class="btn btn-link" content="#remove-adapter-form" title="Delete adapter">
+            <span class="glyphicon glyphicon-trash"></span> Reset
+          </button>
+        </div>
+        <div ng-show="deleteDoctrineAdapter" id="remove-adapter-form" class="panel panel-default">
+          <div class="panel-heading">Reset Doctrine Adapter</div>
+          <div class="panel-body">
+            <form ng-submit="removeDoctrineAdapter(doctrineAdapter.adapter_name)">
+              <p>Are you sure you want to reset the Adapter</p>
+              <button type="submit" class="btn btn-sm btn-success">Yes</button>
+              <button ng-click="deleteDoctrineAdapter = false" type="button" class="btn btn-sm btn-default">No</button>
+            </form>
+          </div>
+        </div>
+      </h4>
+    </div>
+    <div id="collapse{{$index}}" >
+      <div class="panel-body">
+
+        <ul class="nav nav-tabs" id="myTab{{$index}}">
+          <li class="active"><a data-target="#viewmode{{$index}}" data-toggle="tab">View</a></li>
+          <li><a data-target="#editmode{{$index}}" data-toggle="tab">Edit</a></li>
+        </ul>
+
+        <div class="tab-content">
+          <div class="tab-pane active" id="viewmode{{$index}}">
+            <table class="table table-striped">
+              <tr>
+                <td>Driver</td>
+                <td>{{ doctrineAdapter.params.driver }}</td>
+              </tr>
+              <tr>
+                <td>Database</td>
+                <td>{{ doctrineAdapter.params.dbname }}</td>
+              </tr>
+              <tr>
+                <td>Username</td>
+                <td>{{ doctrineAdapter.params.user }}</td>
+              </tr>
+              <tr>
+                <td>Password</td>
+                <td>{{ doctrineAdapter.params.password }}</td>
+              </tr>
+              <tr>
+                <td>Hostname</td>
+                <td>{{ doctrineAdapter.params.host }}</td>
+              </tr>
+              <tr>
+                <td>Port</td>
+                <td>{{ doctrineAdapter.params.port }}</td>
+              </tr>
+            </table>
+
+          </div>
+          <div class="tab-pane" id="editmode{{$index}}">
+
+            <form class="form-horizontal" ng-submit="saveDoctrineAdapter($index)">
+              <fieldset>
+                <!-- Select Basic -->
+                <div class="control-group">
+                <label class="control-label" for="driver">Driver Type</label>
+                <div class="controls">
+                    <select class="input-xlarge" ng-model="doctrineAdapter.params.driver">
+                    <option>IbmDb2</option>
+                    <option>Mysqli</option>
+                    <option>Oci8</option>
+                    <option>Pdo_Mysql</option>
+                    <option>Pdo_Oci</option>
+                    <option>Pdo_Pgsql</option>
+                    <option>Pdo_Sqlite</option>
+                    <option>Pgsql</option>
+                    <option>Sqlsrv</option>
+                    </select>
+                </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="control-group">
+                <label class="control-label" for="database">Database</label>
+                <div class="controls">
+                    <input type="text" placeholder="database name" class="input-xlarge" required="required" ng-model="doctrineAdapter.params.dbname">
+                    <p class="help-block">Name of database or database file</p>
+                </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="control-group">
+                <label class="control-label" for="username">Username</label>
+                <div class="controls">
+                    <input type="text" placeholder="(optional) Username" class="input-xlarge" ng-model="doctrineAdapter.params.user">
+                    <p class="help-block">Username with which to connect</p>
+                </div>
+                </div>
+
+                <!-- Password input-->
+                <div class="control-group">
+                <label class="control-label" for="password">Password</label>
+                <div class="controls">
+                    <input type="password" placeholder="(Optional) Password" class="input-xlarge" ng-model="doctrineAdapter.params.password">
+                    <p class="help-block">Password with which to connect</p>
+                </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="control-group">
+                <label class="control-label" for="hostname">Hostname</label>
+                <div class="controls">
+                    <input type="text" placeholder="(Optional) Hostname" class="input-xlarge" ng-model="doctrineAdapter.params.host">
+                    <p class="help-block">Hostname to which to connect</p>
+                </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="control-group">
+                <label class="control-label" for="port">Port</label>
+                <div class="controls">
+                    <input type="text" placeholder="(Optional) Port" class="input-xlarge" ng-model="doctrineAdapter.params.port">
+                    <p class="help-block">Port to which to connect</p>
+                </div>
+                </div>
+              </fieldset>
+              <button type="submit" class="btn btn-sm btn-success pull-right"
+                  ng-click="saveDbAdapter($index)">Save</button><br />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(function () {
+    $('#myTab a:last').tab('show')
+  })
+</script>
